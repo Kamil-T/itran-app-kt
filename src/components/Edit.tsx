@@ -39,7 +39,7 @@ const Edit = ({
 
   return (
     <>
-      <span className=" inset-0 flex items-center justify-center">
+      <span className=" inset-0 flex basis-1/6 items-center justify-center">
         <button
           type="button"
           onClick={openModal}

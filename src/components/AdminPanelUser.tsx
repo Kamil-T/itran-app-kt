@@ -22,16 +22,16 @@ const AdminPanelUser = ({
 
   return (
     <>
-      <span>{name}</span>
-      <span>{blockedStatus ? "Yes" : "No"}</span>
-      <span>{adminStatus ? "Yes" : "No"}</span>
+      <span className="basis-1/4">{name}</span>
+      <span className="basis-1/12">{blockedStatus ? "Yes" : "No"}</span>
+      <span className="basis-1/12">{adminStatus ? "Yes" : "No"}</span>
       <Edit
         blockedStatus={blockedStatus}
         adminStatus={adminStatus}
         setBlockedStatus={setBlockedStatus}
         setAdminStatus={setAdminStatus}
       />
-      <span className=" inset-0 flex items-center justify-center">
+      <span className=" inset-0 flex basis-1/6 items-center justify-center">
         <button
           type="button"
           onClick={deleteUser}

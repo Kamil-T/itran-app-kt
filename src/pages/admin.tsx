@@ -38,9 +38,9 @@ const Admin = ({ users }) => {
           User List
         </h2>
 
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+        <div className="mt-6 flex flex-col justify-center gap-5">
           {users.map((user: User) => (
-            <div key={user.id} className="mt-4 flex justify-between">
+            <div key={user.id} className="mt-4 flex items-center">
               <AdminPanelUser
                 id={user.id}
                 name={user.name}
