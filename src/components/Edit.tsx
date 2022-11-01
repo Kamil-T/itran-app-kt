@@ -5,26 +5,31 @@ import Toggle from "./Toggle";
 Toggle;
 
 interface EditProps {
+  id: string;
   blockedStatus: boolean;
   setBlockedStatus: Dispatch<SetStateAction<boolean>>;
   adminStatus: boolean;
   setAdminStatus: Dispatch<SetStateAction<boolean>>;
+  handleUpdate: (id: string, admin: boolean, blocked: boolean) => Promise<void>;
 }
 
 const Edit = ({
+  id,
   blockedStatus,
   setBlockedStatus,
   adminStatus,
   setAdminStatus,
+  handleUpdate,
 }: EditProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isBlocked, setIsBlocked] = useState(blockedStatus);
   const [isAdmin, setIsAdmin] = useState(blockedStatus);
 
-  const onSave = () => {
+  const onSave = async () => {
+    await handleUpdate(id, isBlocked, isAdmin);
     setBlockedStatus(isBlocked);
     setAdminStatus(isAdmin);
-    closeModal();
+    setIsOpen(false);
   };
 
   const closeModal = () => {
@@ -85,8 +90,17 @@ const Edit = ({
                     <p className="text-sm text-gray-500">Change user access?</p>
                   </div>
                   <div>
-                    <Toggle isEnabled={isBlocked} setIsEnabled={setIsBlocked} />
-                    <Toggle isEnabled={isAdmin} setIsEnabled={setIsAdmin} />
+                    <Toggle
+                      name={"Block"}
+                      isEnabled={isBlocked}
+                      setIsEnabled={setIsBlocked}
+                    />
+
+                    <Toggle
+                      name={"Admin"}
+                      isEnabled={isAdmin}
+                      setIsEnabled={setIsAdmin}
+                    />
                   </div>
 
                   <div className="mt-4 flex gap-7">

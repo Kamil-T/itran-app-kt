@@ -6,7 +6,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(405).json({message: 'Method not allowed'})
   }
    const id = JSON.parse(req.body)
-   console.log(id)
 
  const deleteItems =
   prisma.collection.deleteMany({

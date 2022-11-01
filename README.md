@@ -73,7 +73,7 @@ The app is now running, navigate to [`http://localhost:3000/`](http://localhost:
 
 **Drafts** (located in [`./pages/drafts.tsx`](./pages/drafts.tsx))
 
-![](https://imgur.com/PSMzhcd.png)
+![](https://imgur.com/PSMcreatezhcd.png)
 
 **View post** (located in [`./pages/p/[id].tsx`](./pages/p/[id].tsx)) (delete or publish here)
 

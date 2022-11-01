@@ -9,6 +9,7 @@ interface UserProps {
   blocked: boolean;
   admin: boolean;
   handleDelete: (id: any) => Promise<void>;
+  handleUpdate: (id: string, admin: boolean, blocked: boolean) => Promise<void>
 }
 
 const AdminPanelUser = ({
@@ -18,10 +19,10 @@ const AdminPanelUser = ({
   blocked,
   admin,
   handleDelete,
+  handleUpdate
 }: UserProps) => {
   const [adminStatus, setAdminStatus] = useState(admin);
   const [blockedStatus, setBlockedStatus] = useState(blocked);
-  console.log(blockedStatus);
 
   return (
     <>
@@ -30,10 +31,12 @@ const AdminPanelUser = ({
       <span className="basis-1/12">{blockedStatus ? "Yes" : "No"}</span>
       <span className="basis-1/12">{adminStatus ? "Yes" : "No"}</span>
       <Edit
+      id={id}
         blockedStatus={blockedStatus}
         adminStatus={adminStatus}
         setBlockedStatus={setBlockedStatus}
         setAdminStatus={setAdminStatus}
+        handleUpdate={handleUpdate}
       />
       <span className=" inset-0 flex basis-1/6 items-center justify-center">
         <button

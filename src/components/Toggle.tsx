@@ -2,9 +2,11 @@ import { Switch } from "@headlessui/react";
 import type { Dispatch, SetStateAction } from "react";
 
 const Toggle = ({
+  name,
   isEnabled,
   setIsEnabled,
 }: {
+  name: string;
   isEnabled: boolean;
   setIsEnabled: Dispatch<SetStateAction<boolean>>;
 }) => {
@@ -14,6 +16,7 @@ const Toggle = ({
 
   return (
     <div className="py-16">
+      <span>{name}</span>
       <Switch
         checked={isEnabled}
         onChange={onChange}

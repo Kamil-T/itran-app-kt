@@ -30,7 +30,20 @@ const deleteUser = async (id: string): Promise<void> => {
     method: "DELETE",
     body: JSON.stringify(id),
   });
-  console.log(response.body);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return await response.json();
+};
+const saveUserStatus = async (id: string, blocked: boolean, admin: boolean) => {
+  const userData = { id, blocked, admin };
+
+  const response = await fetch("/api/editUserStatus", {
+    method: "PATCH",
+    body: JSON.stringify(userData),
+  });
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -41,7 +54,6 @@ const deleteUser = async (id: string): Promise<void> => {
 
 const Admin = ({ initialUsers }) => {
   const [users, setUsers] = useState<User[]>(initialUsers);
-  console.log(users);
 
   const handleDelete = async (id) => {
     await deleteUser(id);
@@ -50,7 +62,10 @@ const Admin = ({ initialUsers }) => {
         return user.id !== id;
       })
     );
-    await console.log(users);
+  };
+
+  const handleUpdate = async (id: string, blocked: boolean, admin: boolean) => {
+    await saveUserStatus(id, blocked, admin);
   };
 
   return (
@@ -61,6 +76,12 @@ const Admin = ({ initialUsers }) => {
         </h2>
 
         <div className="mt-6 flex flex-col justify-center gap-5">
+          <div className="mt-4 flex items-center">
+            <span className="basis-1/4">Name</span>
+            <span className="basis-1/4">E-mail</span>
+            <span className="basis-1/12">Blocked</span>
+            <span className="basis-1/12">Admin</span>
+          </div>
           {users?.map((user: User) => (
             <div key={user.id} className="mt-4 flex items-center">
               <AdminPanelUser
@@ -70,6 +91,7 @@ const Admin = ({ initialUsers }) => {
                 blocked={user.blocked}
                 admin={user.admin}
                 handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
               />
             </div>
           ))}
