@@ -24,7 +24,7 @@ const saveUser = async (user: Prisma.UserCreateInput) => {
   return await response.json();
 };
 
-const Admin: React.FC<User[]> = (users) => {
+const Admin = ({ users }) => {
   console.log(users);
 
   const deleteUser = () => {
