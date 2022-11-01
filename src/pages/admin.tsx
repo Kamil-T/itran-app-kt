@@ -25,9 +25,33 @@ const saveUser = async (user: Prisma.UserCreateInput) => {
   return await response.json();
 };
 
+const deleteUser = async (id: string): Promise<void> => {
+  const response = await fetch("/api/deleteUser/", {
+    method: "DELETE",
+    body: JSON.stringify(id),
+  });
+  console.log(response.body);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  return await response.json();
+};
+
 const Admin = ({ initialUsers }) => {
   const [users, setUsers] = useState<User[]>(initialUsers);
   console.log(users);
+
+  const handleDelete = async (id) => {
+    await deleteUser(id);
+    await setUsers(
+      users.filter((user) => {
+        return user.id !== id;
+      })
+    );
+    await console.log(users);
+  };
 
   return (
     <div className="bg-white">
@@ -45,9 +69,7 @@ const Admin = ({ initialUsers }) => {
                 email={user.email}
                 blocked={user.blocked}
                 admin={user.admin}
-                deleteUser={function (): void {
-                  throw new Error("Function not implemented.");
-                }}
+                handleDelete={handleDelete}
               />
             </div>
           ))}
