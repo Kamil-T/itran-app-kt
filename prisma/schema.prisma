@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id          String       @id @default(cuid())
+  name        String
+  email       String       @unique
+  password    String
+  blocked     Boolean      @default(false)
+  admin       Boolean      @default(false)
+  collections Collection[]
+}
+
+model Collection {
+  id          String @id @default(cuid())
+  name        String
+  description String @db.Text
+  topic       String
+  createdBy   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String
+  tags        String
+  items       Item[]
+
+  @@index(userId)
+}
+
+model Item {
+  id           String     @id @default(cuid())
+  name         String
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  collectionId String
+
+  @@index(collectionId)
+}
+
+model Topic {
+  id   String @id @default(cuid())
+  name String
+}
