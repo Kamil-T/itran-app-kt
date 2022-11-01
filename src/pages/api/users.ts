@@ -13,3 +13,26 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.json(savedUser)
 
   }
+
+export const deleteItems = (id) =>
+  prisma.collection.deleteMany({
+    where: { userId: id },
+  });
+
+export const deleteCollections = (id) =>
+  prisma.collection.deleteMany({
+    where: { userId: id },
+  });
+
+const deleteUser = (id) =>
+  prisma.user.delete({
+    where: { id: id },
+  });
+
+export const transaction = async (id) =>
+  await prisma.$transaction([
+    deleteItems(id),
+    deleteCollections(id),
+    deleteUser(id),
+  ]);
+ 

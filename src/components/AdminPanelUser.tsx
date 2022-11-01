@@ -4,6 +4,7 @@ import Edit from "./Edit";
 interface UserProps {
   id: string;
   name: string;
+  email: string;
   blocked: boolean;
   admin: boolean;
   deleteUser: () => void;
@@ -12,6 +13,7 @@ interface UserProps {
 const AdminPanelUser = ({
   id,
   name,
+  email,
   blocked,
   admin,
   deleteUser,
@@ -23,6 +25,7 @@ const AdminPanelUser = ({
   return (
     <>
       <span className="basis-1/4">{name}</span>
+      <span className="basis-1/4">{email}</span>
       <span className="basis-1/12">{blockedStatus ? "Yes" : "No"}</span>
       <span className="basis-1/12">{adminStatus ? "Yes" : "No"}</span>
       <Edit

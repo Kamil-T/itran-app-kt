@@ -32,16 +32,18 @@ model Collection {
   tags        String
   items       Item[]
 
-  @@index(userId)
+  @@unique([id, userId])
+  @@index([id, userId])
 }
 
 model Item {
   id           String     @id @default(cuid())
   name         String
-  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
+  collection   Collection @relation(fields: [collectionId, userId], references: [id, userId], onDelete: Cascade)
   collectionId String
+  userId       String
 
-  @@index(collectionId)
+  @@index([collectionId, userId])
 }
 
 model Topic {
