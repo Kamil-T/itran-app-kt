@@ -5,9 +5,10 @@ import { ReactNode, useState } from "react";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Admin", href: "admin" },
   { name: "Collections", href: "collections" },
   { name: "My collections", href: "my-collections" },
+  { name: "Register", href: "registration" },
+  { name: "Log in", href: "log-in" },
   { name: "Sign out", href: "/" },
 ];
 
@@ -21,7 +22,7 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   const [current, setCurrent] = useState("Home");
-  console.log(current);
+
   return (
     <div className="min-h-full">
       <Disclosure as="nav" className="bg-gray-800">
@@ -48,6 +49,20 @@ const Layout = ({ children }: Props) => {
                           </span>
                         </Link>
                       ))}
+                      <Link key={"Admin"} href={"/admin"}>
+                        <span
+                          onClick={() => setCurrent("Admin")}
+                          className={classNames(
+                            current === "Admin"
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
+                          )}
+                          aria-current={current ? "page" : undefined}
+                        >
+                          Admin
+                        </span>
+                      </Link>
                     </div>
                   </div>
                 </div>
