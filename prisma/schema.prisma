@@ -29,7 +29,6 @@ model Collection {
   topic       String
   createdBy   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  tags        String
   items       Item[]
 
   @@unique([id, userId])
@@ -42,11 +41,16 @@ model Item {
   collection   Collection @relation(fields: [collectionId, userId], references: [id, userId], onDelete: Cascade)
   collectionId String
   userId       String
+  tags         Json       @db.Json
 
   @@index([collectionId, userId])
 }
 
-model Topic {
+model TopicList {
   id   String @id @default(cuid())
   name String
+}
+
+model TagList {
+  name String @id @unique
 }
